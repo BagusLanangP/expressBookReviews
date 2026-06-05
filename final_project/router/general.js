@@ -1,3 +1,4 @@
+const axios = require('axios');
 const express = require('express');
 let books = require("./booksdb.js");
 let { isValid, users } = require("./auth_users.js");
@@ -55,4 +56,47 @@ public_users.get('/review/:isbn', function (req, res) {
     }
 });
 
+// --- IMPLEMENTASI FUNGSI CLIENT-SIDE MENGGUNAKAN AXIOS ---
+
+// 1. Get All Books
+const getBooks = async () => {
+    try {
+        const response = await axios.get('http://localhost:5000/');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// 2. Get Books by ISBN
+const getBookByISBN = async (isbn) => {
+    try {
+        const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// 3. Get Books by Author
+const getBooksByAuthor = async (author) => {
+    try {
+        const response = await axios.get(`http://localhost:5000/author/${author}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// 4. Get Books by Title
+const getBooksByTitle = async (title) => {
+    try {
+        const response = await axios.get(`http://localhost:5000/title/${title}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports.general = public_users;
+
